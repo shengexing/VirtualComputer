@@ -20,7 +20,7 @@ public class GateAnd implements Gate {
      * 2. 输出端的值由
      */
     public GateAnd() {
-        input0 = 0; input1 = 0; output = (byte) (input0 & input1);
+        input0 = 0; input1 = 0; output = createOutput();
     }
 
     /**
@@ -40,7 +40,20 @@ public class GateAnd implements Gate {
      * @return 新的输出值
      */
     public byte createOutput() {
-        return (byte) (this.input0 & this.input1);
+        this.output = (byte) (this.input0 & this.input1);
+        return this.output;
+    }
+
+    /**
+     * 方法名：设置输入端的值
+     * 作用：设置 <b>与门</b> 输入端的值
+     * @param input0 输入端 0 的值
+     * @param input1 输入端 1 的值
+     */
+    public void setInputValues(byte input0, byte input1) {
+        this.input0 = input0;
+        this.input1 = input1;
+        createOutput();
     }
 
     /**
@@ -49,8 +62,8 @@ public class GateAnd implements Gate {
      * @return
      */
     @Override
-    public int[] getInputValue() {
-        return new int[0];
+    public int[] getInputValues() {
+        return new int[] {this.input0, this.input1};
     }
 
     /**
@@ -60,6 +73,6 @@ public class GateAnd implements Gate {
      */
     @Override
     public int getOutputValue() {
-        return 0;
+        return this.output;
     }
 }
