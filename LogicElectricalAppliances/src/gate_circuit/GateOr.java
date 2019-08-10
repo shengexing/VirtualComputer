@@ -1,46 +1,46 @@
 package gate_circuit;
 
 /**
- * 类名：与门
- * 作用：实现与门的所有逻辑
+ * 类名：或门
+ * 作用：实现或门的所有逻辑
  */
-public class GateAnd implements Gate {
+public class GateOr implements Gate {
 
-    /* 与门的输入端的值 */
+    /* 或门的输入端的值 */
     private byte[] inputs;
 
-    /* 与门的输出端的值： output */
+    /* 或门的输出端的值： output */
     private byte output;
 
     /**
-     * 默认无参的构造方法：构造缺省的与门对象
+     * 默认无参的构造方法：构造缺省的或门对象
      * 实现：
-     * 1. 与门的输入端都赋值为0
+     * 1. 或门的两个输入端都赋值为0
      * 2. 输出端的值由 createOutput 生成
      */
-    public GateAnd() {
+    public GateOr() {
         this.inputs = new byte[2];
         setInputValues(this.inputs);
     }
 
     /**
-     * 含参的构造方法：使用输入端的值构造与门对象
+     * 含参的构造方法：使用输入端的值构造或门对象
      * @param inputs 输入端的值
      */
-    public GateAnd(byte[] inputs) {
+    public GateOr(byte[] inputs) {
         setInputValues(inputs);
     }
 
     /**
      * 方法名：创建输出端的值
-     * 作用：创建 <b>与门</b> 输出端的值
+     * 作用：创建 <b>或门</b> 输出端的值
      * @return 新的输出值
      */
-    private byte createOutput() {
-        byte out = 1;
+    public byte createOutput() {
+        byte out = 0;
         for (byte input: this.inputs) {
-            if (0 == input) {
-                out = 0;
+            if (1 == input) {
+                out = 1;
                 break;
             }
         }
@@ -49,7 +49,7 @@ public class GateAnd implements Gate {
 
     /**
      * 方法名：设置输入端的值
-     * 作用：设置 <b>与门</b> 输入端的值
+     * 作用：设置 <b>或门</b> 输入端的值
      * @param inputs 输入端的值
      */
     public void setInputValues(byte[] inputs) {
@@ -59,7 +59,7 @@ public class GateAnd implements Gate {
 
     /**
      * 方法名：获取输入端的值
-     * 作用：获取 <b>与门</b> 输入端的值
+     * 作用：获取 <b>或门</b> 输入端的值
      * @return
      */
     @Override
@@ -69,7 +69,7 @@ public class GateAnd implements Gate {
 
     /**
      * 方法名：获取输出端的值
-     * 作用：获取 <b>与门</b> 输出端的值
+     * 作用：获取 <b>或门</b> 输出端的值
      * @return
      */
     @Override

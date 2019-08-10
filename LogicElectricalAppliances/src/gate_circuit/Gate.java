@@ -11,13 +11,13 @@ public interface Gate {
      * 作用：获取 <b>门</b> 输入端的值
      * @return 输入值
      */
-    int[] getInputValues();
+    byte[] getInputValues();
 
     /**
      * 方法名：获取输出端的值
      * 作用：获取 <b>门</b> 输出端的值
      * @return 输出值
      */
-    int getOutputValue();
+    byte getOutputValue();
 
 }
