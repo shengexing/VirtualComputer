@@ -16,6 +16,7 @@ public class TestClass {
     private static GateNor gateNor = new GateNor();
     private static GateXor gateXor = new GateXor();
     private static GateXnor gateXnor = new GateXnor();
+    private static GateAoi gateAoi = new GateAoi();
 
     /**
      * 方法名：测试 GateAnd 类的基本逻辑功能
@@ -477,6 +478,229 @@ public class TestClass {
         }
     }
 
+    /**
+     * 方法名：测试 GateAoi 类的基本逻辑功能
+     * 作用：测试 <b>与或非门</b> 类的基本逻辑功能
+     */
+    private static void testClass_GateAoi() {
+        System.out.println("测试 与或非门 的基本逻辑功能：");
+
+        /* 临时变量：用于测试的输入值和预计的输出值*/
+        byte testInput0;
+        byte testInput1;
+        byte testInput2;
+        byte testInput3;
+        byte testOutput;
+
+        /*
+         * 测试用例：GateAoi_00001
+         * 输入值：0,0,0,0
+         * 预计输出：1
+         */
+        testInput0 = 0;
+        testInput1 = 0;
+        testInput2 = 0;
+        testInput3 = 0;
+        testOutput = 1;
+        testClass_GateAoi_Helper(testInput0, testInput1, testInput2, testInput3, testOutput);
+
+        /*
+         * 测试用例：GateAoi_00011
+         * 输入值：0,0,0,1
+         * 预计输出：1
+         */
+        testInput0 = 0;
+        testInput1 = 0;
+        testInput2 = 0;
+        testInput3 = 1;
+        testOutput = 1;
+        testClass_GateAoi_Helper(testInput0, testInput1, testInput2, testInput3, testOutput);
+
+        /*
+         * 测试用例：GateAoi_00101
+         * 输入值：0,0,1,0
+         * 预计输出：1
+         */
+        testInput0 = 0;
+        testInput1 = 0;
+        testInput2 = 1;
+        testInput3 = 0;
+        testOutput = 1;
+        testClass_GateAoi_Helper(testInput0, testInput1, testInput2, testInput3, testOutput);
+
+        /*
+         * 测试用例：GateAoi_00110
+         * 输入值：0,0,1,1
+         * 预计输出：0
+         */
+        testInput0 = 0;
+        testInput1 = 0;
+        testInput2 = 1;
+        testInput3 = 1;
+        testOutput = 0;
+        testClass_GateAoi_Helper(testInput0, testInput1, testInput2, testInput3, testOutput);
+
+        /*
+         * 测试用例：GateAoi_01001
+         * 输入值：0,1,0,0
+         * 预计输出：1
+         */
+        testInput0 = 0;
+        testInput1 = 1;
+        testInput2 = 0;
+        testInput3 = 0;
+        testOutput = 1;
+        testClass_GateAoi_Helper(testInput0, testInput1, testInput2, testInput3, testOutput);
+
+        /*
+         * 测试用例：GateAoi_01011
+         * 输入值：0,1,0,1
+         * 预计输出：1
+         */
+        testInput0 = 0;
+        testInput1 = 1;
+        testInput2 = 0;
+        testInput3 = 1;
+        testOutput = 1;
+        testClass_GateAoi_Helper(testInput0, testInput1, testInput2, testInput3, testOutput);
+
+        /*
+         * 测试用例：GateAoi_01101
+         * 输入值：0,1,1,0
+         * 预计输出：1
+         */
+        testInput0 = 0;
+        testInput1 = 1;
+        testInput2 = 1;
+        testInput3 = 0;
+        testOutput = 1;
+        testClass_GateAoi_Helper(testInput0, testInput1, testInput2, testInput3, testOutput);
+
+        /*
+         * 测试用例：GateAoi_01110
+         * 输入值：0,0,1,1
+         * 预计输出：0
+         */
+        testInput0 = 0;
+        testInput1 = 1;
+        testInput2 = 1;
+        testInput3 = 1;
+        testOutput = 0;
+        testClass_GateAoi_Helper(testInput0, testInput1, testInput2, testInput3, testOutput);
+
+        /*
+         * 测试用例：GateAoi_10001
+         * 输入值：1,0,0,0
+         * 预计输出：1
+         */
+        testInput0 = 1;
+        testInput1 = 0;
+        testInput2 = 0;
+        testInput3 = 0;
+        testOutput = 1;
+        testClass_GateAoi_Helper(testInput0, testInput1, testInput2, testInput3, testOutput);
+
+        /*
+         * 测试用例：GateAoi_10011
+         * 输入值：1,0,0,1
+         * 预计输出：1
+         */
+        testInput0 = 1;
+        testInput1 = 0;
+        testInput2 = 0;
+        testInput3 = 1;
+        testOutput = 1;
+        testClass_GateAoi_Helper(testInput0, testInput1, testInput2, testInput3, testOutput);
+
+        /*
+         * 测试用例：GateAoi_10101
+         * 输入值：1,0,1,0
+         * 预计输出：1
+         */
+        testInput0 = 1;
+        testInput1 = 0;
+        testInput2 = 1;
+        testInput3 = 0;
+        testOutput = 1;
+        testClass_GateAoi_Helper(testInput0, testInput1, testInput2, testInput3, testOutput);
+
+        /*
+         * 测试用例：GateAoi_10110
+         * 输入值：1,0,1,1
+         * 预计输出：0
+         */
+        testInput0 = 1;
+        testInput1 = 0;
+        testInput2 = 1;
+        testInput3 = 1;
+        testOutput = 0;
+        testClass_GateAoi_Helper(testInput0, testInput1, testInput2, testInput3, testOutput);
+
+        /*
+         * 测试用例：GateAoi_11000
+         * 输入值：1,1,0,0
+         * 预计输出：0
+         */
+        testInput0 = 1;
+        testInput1 = 1;
+        testInput2 = 0;
+        testInput3 = 0;
+        testOutput = 0;
+        testClass_GateAoi_Helper(testInput0, testInput1, testInput2, testInput3, testOutput);
+
+        /*
+         * 测试用例：GateAoi_11010
+         * 输入值：1,1,0,1
+         * 预计输出：0
+         */
+        testInput0 = 1;
+        testInput1 = 1;
+        testInput2 = 0;
+        testInput3 = 1;
+        testOutput = 0;
+        testClass_GateAoi_Helper(testInput0, testInput1, testInput2, testInput3, testOutput);
+
+        /*
+         * 测试用例：GateAoi_11100
+         * 输入值：1,1,1,0
+         * 预计输出：0
+         */
+        testInput0 = 1;
+        testInput1 = 1;
+        testInput2 = 1;
+        testInput3 = 0;
+        testOutput = 0;
+        testClass_GateAoi_Helper(testInput0, testInput1, testInput2, testInput3, testOutput);
+
+        /*
+         * 测试用例：GateAoi_11110
+         * 输入值：1,1,1,1
+         * 预计输出：0
+         */
+        testInput0 = 1;
+        testInput1 = 1;
+        testInput2 = 1;
+        testInput3 = 1;
+        testOutput = 0;
+        testClass_GateAoi_Helper(testInput0, testInput1, testInput2, testInput3, testOutput);
+
+        System.out.println();
+    }
+
+    /**
+     * 方法名：testClass_GateAoi() 方法的辅助方法
+     * 作用：为 testClass_GateAoi() 提供辅助功能
+     */
+    private static void testClass_GateAoi_Helper(byte input0, byte input1, byte input2, byte input3, byte output) {
+        String caseName = "GateAoi_" + input0 + input1 + input2 + input3 + output;
+        gateAoi.setInputValues(new byte[][] {{input0, input1}, {input2, input3}});
+        if (output == gateAoi.getOutputValue()) {
+            System.out.println("测试用例：" + caseName + " 通过！");
+        } else {
+            System.out.println("测试用例：" + caseName + " 不通过！");
+        }
+    }
+
     public static void main(String[] args) {
         /* 测试 GateAnd 类*/
         testClass_GateAnd();
@@ -498,6 +722,9 @@ public class TestClass {
 
         /* 测试 GateXnor 类*/
         testClass_GateXnor();
+
+        /* 测试 GateAoi 类*/
+        testClass_GateAoi();
     }
 
 }
