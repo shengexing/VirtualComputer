@@ -19,7 +19,7 @@ public class GateNot implements Gate {
      * 2. 输出端的值由 createOutput 生成
      */
     public GateNot() {
-        setInputValues((byte) 0);
+        setInputValues(MACHINE_CODE[0]);
     }
 
     /**
@@ -36,7 +36,7 @@ public class GateNot implements Gate {
      * @return 新的输出值
      */
     public byte createOutput() {
-        return this.output = (byte) (~this.input + 2);
+        return this.output = this.input == MACHINE_CODE[0] ? MACHINE_CODE[1] : MACHINE_CODE[0];
     }
 
     /**

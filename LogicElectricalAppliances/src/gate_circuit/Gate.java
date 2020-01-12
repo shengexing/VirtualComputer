@@ -7,6 +7,12 @@ package gate_circuit;
 public interface Gate {
 
     /**
+     * 常量名：机器码
+     * 含义：计算机中的机器码（0,1）
+     */
+    public static final byte[] MACHINE_CODE = new byte[] {0, 1};
+
+    /**
      * 方法名：获取输入端的值
      * 作用：获取 <b>门</b> 输入端的值
      * @return 输入值

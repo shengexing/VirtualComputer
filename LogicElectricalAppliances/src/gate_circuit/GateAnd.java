@@ -37,10 +37,10 @@ public class GateAnd implements Gate {
      * @return 新的输出值
      */
     private byte createOutput() {
-        byte out = 1;
+        byte out = MACHINE_CODE[1];
         for (byte input: this.inputs) {
-            if (0 == input) {
-                out = 0;
+            if (MACHINE_CODE[0] == input) {
+                out = MACHINE_CODE[0];
                 break;
             }
         }

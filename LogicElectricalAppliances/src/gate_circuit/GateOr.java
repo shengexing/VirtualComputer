@@ -37,10 +37,10 @@ public class GateOr implements Gate {
      * @return 新的输出值
      */
     public byte createOutput() {
-        byte out = 0;
+        byte out = MACHINE_CODE[0];
         for (byte input: this.inputs) {
-            if (1 == input) {
-                out = 1;
+            if (MACHINE_CODE[1] == input) {
+                out = MACHINE_CODE[1];
                 break;
             }
         }
