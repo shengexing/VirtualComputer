@@ -1,18 +1,27 @@
-package gate_circuit;
+package gate.circuit;
+
+import gate.data.base.MACHINE_CODE;
 
 /**
  * 类名：与或非门
  * 作用：实现 与或非门 的所有逻辑
+ * @author 93710
  */
 public class GateAoi implements Gate {
 
-    /* 与或非门的输入端的值 */
-    private byte[][] inputs;
+    /**
+     * 与或非门的输入端的值
+     */
+    private MACHINE_CODE[][] inputs;
 
-    /* 与或非门的输出端的值： output */
-    private byte output;
+    /**
+     * 与或非门的输出端的值： output
+     */
+    private MACHINE_CODE output;
 
-    /* 与非门所依赖的 与门 或门 非门 */
+    /**
+     * 与非门所依赖的 与门 或门 非门
+     */
     private GateAnd[] gateAnds = new GateAnd[] {new GateAnd(), new GateAnd()};
     private GateNor gateNor = new GateNor();
 
@@ -23,7 +32,7 @@ public class GateAoi implements Gate {
      * 2. 输出端的值由 createOutput 生成
      */
     public GateAoi() {
-        this.inputs = new byte[2][2];
+        this.inputs = new MACHINE_CODE[2][2];
         setInputValues(inputs);
     }
 
@@ -31,7 +40,7 @@ public class GateAoi implements Gate {
      * 含参的构造方法：使用输入端的值构造与或非门对象
      * @param inputs 输入端的值
      */
-    public GateAoi(byte[][] inputs) {
+    public GateAoi(MACHINE_CODE[][] inputs) {
         this.inputs = inputs;
         gateAnds = new GateAnd[inputs.length];
         setInputValues(inputs);
@@ -42,8 +51,8 @@ public class GateAoi implements Gate {
      * 作用：创建 <b>与或非门</b> 输出端的值
      * @return 新的输出值
      */
-    private byte createOutput() {
-        byte[] gateNor_inputs = new byte[inputs.length];
+    private MACHINE_CODE createOutput() {
+        MACHINE_CODE[] gateNor_inputs = new MACHINE_CODE[inputs.length];
 
         for (int i = 0; i < inputs.length; i++) {
             gateAnds[i].setInputValues(inputs[i]);
@@ -59,7 +68,7 @@ public class GateAoi implements Gate {
      * 作用：设置 <b>与或非门</b> 输入端的值
      * @param inputs 输入端的值
      */
-    public void setInputValues(byte[][] inputs) {
+    public void setInputValues(MACHINE_CODE[][] inputs) {
         this.inputs = inputs;
         createOutput();
     }
@@ -67,22 +76,22 @@ public class GateAoi implements Gate {
     /**
      * 方法名：获取输入端的值
      * 作用：获取 <b>与或非门</b> 输入端的值
-     * @return
+     * @return 输入端的值
      */
     @Override
-    public byte[] getInputValues() {
-        byte[] result;
+    public MACHINE_CODE[] getInputValues() {
+        MACHINE_CODE[] result;
 
         int len = 0;
-        for (int i = 0; i < inputs.length; i++) {
-            len += inputs[i].length;
+        for (MACHINE_CODE[] input : inputs) {
+            len += input.length;
         }
-        result = new byte[len];
+        result = new MACHINE_CODE[len];
 
         int t = 0;
-        for (int i = 0; i < inputs.length; i++) {
-            for (int j = 0; j < inputs[i].length; j++) {
-                result[t++] = inputs[i][j];
+        for (MACHINE_CODE[] input : inputs) {
+            for (MACHINE_CODE machine_code : input) {
+                result[t++] = machine_code;
             }
         }
 
@@ -92,10 +101,10 @@ public class GateAoi implements Gate {
     /**
      * 方法名：获取输出端的值
      * 作用：获取 <b>与或非门</b> 输出端的值
-     * @return
+     * @return 输出端的值
      */
     @Override
-    public byte getOutputValue() {
+    public MACHINE_CODE getOutputValue() {
         return this.output;
     }
 }

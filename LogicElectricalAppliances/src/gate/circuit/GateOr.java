@@ -1,16 +1,23 @@
-package gate_circuit;
+package gate.circuit;
+
+import gate.data.base.MACHINE_CODE;
 
 /**
  * 类名：或门
  * 作用：实现或门的所有逻辑
+ * @author 93710
  */
 public class GateOr implements Gate {
 
-    /* 或门的输入端的值 */
-    private byte[] inputs;
+    /**
+     * 或门的输入端的值
+     */
+    private MACHINE_CODE[] inputs;
 
-    /* 或门的输出端的值： output */
-    private byte output;
+    /**
+     * 或门的输出端的值： output
+     */
+    private MACHINE_CODE output;
 
     /**
      * 默认无参的构造方法：构造缺省的或门对象
@@ -19,7 +26,7 @@ public class GateOr implements Gate {
      * 2. 输出端的值由 createOutput 生成
      */
     public GateOr() {
-        this.inputs = new byte[2];
+        this.inputs = new MACHINE_CODE[2];
         setInputValues(this.inputs);
     }
 
@@ -27,7 +34,7 @@ public class GateOr implements Gate {
      * 含参的构造方法：使用输入端的值构造或门对象
      * @param inputs 输入端的值
      */
-    public GateOr(byte[] inputs) {
+    public GateOr(MACHINE_CODE[] inputs) {
         setInputValues(inputs);
     }
 
@@ -36,11 +43,11 @@ public class GateOr implements Gate {
      * 作用：创建 <b>或门</b> 输出端的值
      * @return 新的输出值
      */
-    public byte createOutput() {
-        byte out = MACHINE_CODE[0];
-        for (byte input: this.inputs) {
-            if (MACHINE_CODE[1] == input) {
-                out = MACHINE_CODE[1];
+    public MACHINE_CODE createOutput() {
+        MACHINE_CODE out = MACHINE_CODE.binary_0;
+        for (MACHINE_CODE input: this.inputs) {
+            if (MACHINE_CODE.binary_1 == input) {
+                out = MACHINE_CODE.binary_1;
                 break;
             }
         }
@@ -52,7 +59,7 @@ public class GateOr implements Gate {
      * 作用：设置 <b>或门</b> 输入端的值
      * @param inputs 输入端的值
      */
-    public void setInputValues(byte[] inputs) {
+    public void setInputValues(MACHINE_CODE[] inputs) {
         this.inputs = inputs;
         createOutput();
     }
@@ -60,20 +67,20 @@ public class GateOr implements Gate {
     /**
      * 方法名：获取输入端的值
      * 作用：获取 <b>或门</b> 输入端的值
-     * @return
+     * @return 输入端的值
      */
     @Override
-    public byte[] getInputValues() {
+    public MACHINE_CODE[] getInputValues() {
         return this.inputs;
     }
 
     /**
      * 方法名：获取输出端的值
      * 作用：获取 <b>或门</b> 输出端的值
-     * @return
+     * @return 输出端的值
      */
     @Override
-    public byte getOutputValue() {
+    public MACHINE_CODE getOutputValue() {
         return this.output;
     }
 }
