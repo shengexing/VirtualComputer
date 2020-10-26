@@ -1,6 +1,7 @@
 package gate.circuit;
 
-import gate.data.base.MACHINE_CODE;
+import gate.Gate;
+import gate.circuit.exception.BaseCircuitException;
 
 /**
  * 类名：同或门
@@ -10,15 +11,26 @@ import gate.data.base.MACHINE_CODE;
 public class GateXnor implements Gate {
 
     /**
-     * 同或门的两个输入端的值： input0, input1
+     * 同或门的输入端的个数
+     * 固定值：2
      */
-    private MACHINE_CODE input0;
-    private MACHINE_CODE input1;
+    private final int inputNums = 2;
+
+    /**
+     * 同或门的输出端的个数
+     * 固定值：1
+     */
+    private final int outputNums = 1;
+
+    /**
+     * 同或门的输入端的值
+     */
+    private MACHINE_CODE[] inputs = new MACHINE_CODE[inputNums];
 
     /**
      * 同或门的输出端的值： output
      */
-    private MACHINE_CODE output;
+    private MACHINE_CODE[] outputs = new MACHINE_CODE[outputNums];
 
     /**
      * 同或门所依赖的 与门 或门 非门
@@ -53,13 +65,18 @@ public class GateXnor implements Gate {
      * 作用：创建 <b>同或门</b> 输出端的值
      * @return 新的输出值
      */
-    private MACHINE_CODE createOutput() {
-        gateNot0.setInputValues(input0);
-        gateNot1.setInputValues(input1);
-        gateAnd0.setInputValues(new MACHINE_CODE[] {input0, input1});
-        gateAnd1.setInputValues(new MACHINE_CODE[] {gateNot0.getOutputValue(), gateNot1.getOutputValue()});
-        gateOr.setInputValues(new MACHINE_CODE[] {gateAnd0.getOutputValue(), gateAnd1.getOutputValue()});
-        return this.output = gateOr.getOutputValue();
+    private MACHINE_CODE[] createOutput() {
+        try {
+            gateNot0.setInputValues(new MACHINE_CODE[]{this.inputs[0]});
+            gateNot1.setInputValues(new MACHINE_CODE[]{this.inputs[1]});
+            gateAnd0.setInputValues(this.inputs);
+            gateAnd1.setInputValues(new MACHINE_CODE[] {gateNot0.getOutputValue()[0], gateNot1.getOutputValue()[0]});
+            gateOr.setInputValues(new MACHINE_CODE[] {gateAnd0.getOutputValue()[0], gateAnd1.getOutputValue()[0]});
+        } catch (BaseCircuitException e) {
+            e.printStackTrace();
+        }
+
+        return this.outputs = gateOr.getOutputValue();
     }
 
     /**
@@ -69,8 +86,8 @@ public class GateXnor implements Gate {
      * @param input1 输入端 1 的值
      */
     public void setInputValues(MACHINE_CODE input0, MACHINE_CODE input1) {
-        this.input0 = input0;
-        this.input1 = input1;
+        this.inputs[0] = input0;
+        this.inputs[1] = input1;
         createOutput();
     }
 
@@ -81,7 +98,7 @@ public class GateXnor implements Gate {
      */
     @Override
     public MACHINE_CODE[] getInputValues() {
-        return new MACHINE_CODE[] {this.input0, this.input1};
+        return this.inputs;
     }
 
     /**
@@ -90,7 +107,7 @@ public class GateXnor implements Gate {
      * @return 输出端的值
      */
     @Override
-    public MACHINE_CODE getOutputValue() {
-        return this.output;
+    public MACHINE_CODE[] getOutputValue() {
+        return this.outputs;
     }
 }

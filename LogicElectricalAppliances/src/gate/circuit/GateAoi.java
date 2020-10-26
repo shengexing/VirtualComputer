@@ -1,6 +1,10 @@
 package gate.circuit;
 
-import gate.data.base.MACHINE_CODE;
+import gate.Gate;
+import gate.circuit.exception.BaseCircuitException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 类名：与或非门
@@ -10,14 +14,31 @@ import gate.data.base.MACHINE_CODE;
 public class GateAoi implements Gate {
 
     /**
+     * 与或非门 最小输入值
+     */
+    public final static int GATEAOI_MIN_INPUT_VALUE = 4;
+
+    /**
+     * 与或非门的输入端的个数
+     * 默认值：2
+     */
+    private int inputNums = GATEAOI_MIN_INPUT_VALUE;
+
+    /**
+     * 与或非门的输出端的个数
+     * 固定值：1
+     */
+    private final int outputNums = 1;
+
+    /**
      * 与或非门的输入端的值
      */
-    private MACHINE_CODE[][] inputs;
+    private List<MACHINE_CODE[]> inputs = new ArrayList<MACHINE_CODE[]>();
 
     /**
      * 与或非门的输出端的值： output
      */
-    private MACHINE_CODE output;
+    private MACHINE_CODE[] outputs = new MACHINE_CODE[outputNums];
 
     /**
      * 与非门所依赖的 与门 或门 非门
@@ -32,7 +53,8 @@ public class GateAoi implements Gate {
      * 2. 输出端的值由 createOutput 生成
      */
     public GateAoi() {
-        this.inputs = new MACHINE_CODE[2][2];
+        this.inputs.add(Gate.getMachineCodeArray(1, 2)[0]);
+        this.inputs.add(Gate.getMachineCodeArray(1, 2)[0]);
         setInputValues(inputs);
     }
 
@@ -40,9 +62,12 @@ public class GateAoi implements Gate {
      * 含参的构造方法：使用输入端的值构造与或非门对象
      * @param inputs 输入端的值
      */
-    public GateAoi(MACHINE_CODE[][] inputs) {
+    public GateAoi(List<MACHINE_CODE[]> inputs) {
         this.inputs = inputs;
-        gateAnds = new GateAnd[inputs.length];
+        int i = 0;
+        for (MACHINE_CODE[] inputArray: inputs) {
+            gateAnds[i++] = new GateAnd(inputArray);
+        }
         setInputValues(inputs);
     }
 
@@ -51,16 +76,25 @@ public class GateAoi implements Gate {
      * 作用：创建 <b>与或非门</b> 输出端的值
      * @return 新的输出值
      */
-    private MACHINE_CODE createOutput() {
-        MACHINE_CODE[] gateNor_inputs = new MACHINE_CODE[inputs.length];
+    private MACHINE_CODE[] createOutput() {
+        MACHINE_CODE[] gateNor_inputs = new MACHINE_CODE[gateAnds.length];
 
-        for (int i = 0; i < inputs.length; i++) {
-            gateAnds[i].setInputValues(inputs[i]);
-            gateNor_inputs[i] = gateAnds[i].getOutputValue();
+        for (int i = 0; i < gateAnds.length; i++) {
+            try {
+                gateAnds[i].setInputValues(inputs.get(i));
+            } catch (BaseCircuitException e) {
+                e.printStackTrace();
+            }
+            gateNor_inputs[i] = gateAnds[i].getOutputValue()[0];
         }
-        gateNor.setInputValues(gateNor_inputs);
 
-        return this.output = gateNor.getOutputValue();
+        try {
+            gateNor.setInputValues(gateNor_inputs);
+        } catch (BaseCircuitException e) {
+            e.printStackTrace();
+        }
+
+        return this.outputs = gateNor.getOutputValue();
     }
 
     /**
@@ -68,9 +102,18 @@ public class GateAoi implements Gate {
      * 作用：设置 <b>与或非门</b> 输入端的值
      * @param inputs 输入端的值
      */
-    public void setInputValues(MACHINE_CODE[][] inputs) {
+    public void setInputValues(List<MACHINE_CODE[]> inputs) {
         this.inputs = inputs;
         createOutput();
+    }
+
+    /**
+     * 方法名：获取输入端的值(真实值)
+     * 作用：获取 <b>与或非门</b> 输入端的值
+     * @return 输入端的值
+     */
+    public List<MACHINE_CODE[]> getInputValuesReal() {
+        return this.inputs;
     }
 
     /**
@@ -79,32 +122,18 @@ public class GateAoi implements Gate {
      * @return 输入端的值
      */
     @Override
-    public MACHINE_CODE[] getInputValues() {
-        MACHINE_CODE[] result;
-
-        int len = 0;
-        for (MACHINE_CODE[] input : inputs) {
-            len += input.length;
-        }
-        result = new MACHINE_CODE[len];
-
-        int t = 0;
-        for (MACHINE_CODE[] input : inputs) {
-            for (MACHINE_CODE machine_code : input) {
-                result[t++] = machine_code;
-            }
-        }
-
-        return result;
+    public MACHINE_CODE[] getInputValues() throws BaseCircuitException {
+        throw new BaseCircuitException(this.getClass().getName(), "getInputValues()", "Call illegal function!");
     }
 
-    /**
+    /**-
      * 方法名：获取输出端的值
      * 作用：获取 <b>与或非门</b> 输出端的值
      * @return 输出端的值
      */
     @Override
-    public MACHINE_CODE getOutputValue() {
-        return this.output;
+    public MACHINE_CODE[] getOutputValue() {
+        return this.outputs;
     }
+
 }

@@ -1,6 +1,7 @@
 package gate.circuit;
 
-import gate.data.base.MACHINE_CODE;
+import gate.Gate;
+import gate.circuit.exception.BaseCircuitException;
 
 /**
  * 类名：或门
@@ -10,14 +11,31 @@ import gate.data.base.MACHINE_CODE;
 public class GateOr implements Gate {
 
     /**
+     * 或门 最小输入值
+     */
+    public final static int GATEOR_MIN_INPUT_VALUE = 2;
+
+    /**
+     * 或门的输入端的个数
+     * 默认值：2
+     */
+    private int inputNums = GATEOR_MIN_INPUT_VALUE;
+
+    /**
+     * 或门的输出端的个数
+     * 固定值：1
+     */
+    private final int outputNums = 1;
+
+    /**
      * 或门的输入端的值
      */
-    private MACHINE_CODE[] inputs;
+    private MACHINE_CODE[] inputs = new MACHINE_CODE[inputNums];
 
     /**
      * 或门的输出端的值： output
      */
-    private MACHINE_CODE output;
+    private MACHINE_CODE[] outputs = new MACHINE_CODE[outputNums];
 
     /**
      * 默认无参的构造方法：构造缺省的或门对象
@@ -26,8 +44,15 @@ public class GateOr implements Gate {
      * 2. 输出端的值由 createOutput 生成
      */
     public GateOr() {
-        this.inputs = new MACHINE_CODE[2];
-        setInputValues(this.inputs);
+        for (int i = 0; i < inputNums; i++) {
+            this.inputs[i] = MACHINE_CODE.binary_0;
+        }
+
+        try {
+            setInputValues(this.inputs);
+        } catch (BaseCircuitException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -35,7 +60,11 @@ public class GateOr implements Gate {
      * @param inputs 输入端的值
      */
     public GateOr(MACHINE_CODE[] inputs) {
-        setInputValues(inputs);
+        try {
+            setInputValues(inputs);
+        } catch (BaseCircuitException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -43,15 +72,15 @@ public class GateOr implements Gate {
      * 作用：创建 <b>或门</b> 输出端的值
      * @return 新的输出值
      */
-    public MACHINE_CODE createOutput() {
-        MACHINE_CODE out = MACHINE_CODE.binary_0;
+    public MACHINE_CODE[] createOutput() {
+        MACHINE_CODE[] outs = {MACHINE_CODE.binary_0};
         for (MACHINE_CODE input: this.inputs) {
             if (MACHINE_CODE.binary_1 == input) {
-                out = MACHINE_CODE.binary_1;
+                outs[0] = MACHINE_CODE.binary_1;
                 break;
             }
         }
-        return this.output = out;
+        return this.outputs = outs;
     }
 
     /**
@@ -59,9 +88,16 @@ public class GateOr implements Gate {
      * 作用：设置 <b>或门</b> 输入端的值
      * @param inputs 输入端的值
      */
-    public void setInputValues(MACHINE_CODE[] inputs) {
-        this.inputs = inputs;
-        createOutput();
+    public void setInputValues(MACHINE_CODE[] inputs) throws NullPointerException, BaseCircuitException {
+        if (inputs == null) {
+            throw new NullPointerException();
+        } else if (inputs.length < GATEOR_MIN_INPUT_VALUE) {
+            throw new BaseCircuitException();
+        } else {
+            this.inputNums = inputs.length;
+            this.inputs = inputs;
+            createOutput();
+        }
     }
 
     /**
@@ -80,7 +116,7 @@ public class GateOr implements Gate {
      * @return 输出端的值
      */
     @Override
-    public MACHINE_CODE getOutputValue() {
-        return this.output;
+    public MACHINE_CODE[] getOutputValue() {
+        return this.outputs;
     }
 }
