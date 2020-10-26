@@ -167,6 +167,24 @@ public class PriorityEncoder_16_4_ByTwo74HC148 implements Gate {
     }
 
     /**
+     * 方法名：设置输入端的值
+     * 作用：设置 <b>16线-4线优先编码器</b> 输入端的值
+     * @param _S 控制器S'：S'=1时，所有输出端均被封锁在高电平；S'=0时，编码器正常工作
+     * @param _A16 编码输入值：A'0 ~ A'15
+     */
+    public void setInputValues(MACHINE_CODE _S, MACHINE_CODE[] _A16) {
+        try {
+            createOutput(new MACHINE_CODE[]{
+                    _S,
+                    _A16[0], _A16[1], _A16[2], _A16[3], _A16[4], _A16[5], _A16[6], _A16[7],
+                    _A16[8], _A16[9], _A16[10], _A16[11], _A16[12], _A16[13], _A16[14], _A16[15]
+            });
+        } catch (BaseCircuitException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * 方法名：获取输入端的值
      * 作用：获取 <b>门</b> 输入端的值
      *

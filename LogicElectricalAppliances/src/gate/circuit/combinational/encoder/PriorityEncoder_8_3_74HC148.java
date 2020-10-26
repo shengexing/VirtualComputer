@@ -243,6 +243,23 @@ public class PriorityEncoder_8_3_74HC148 implements Gate {
     }
 
     /**
+     * 方法名：设置输入端的值
+     * 作用：设置 <b>8线-3线优先编码器</b> 输入端的值
+     * @param _S 控制器S'：S'=1时，所有输出端均被封锁在高电平；S'=0时，编码器正常工作
+     * @param _I8 编码输入值：I'0 ~ I'7
+     */
+    public void setInputValues(MACHINE_CODE _S, MACHINE_CODE[] _I8) {
+        try {
+            createOutput(new MACHINE_CODE[]{
+                    _S,
+                    _I8[0], _I8[1], _I8[2], _I8[3], _I8[4], _I8[5], _I8[6], _I8[7]
+            });
+        } catch (BaseCircuitException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * 方法名：获取输入端的值
      * 作用：获取 <b>8线-3线优先编码器</b> 输入端的值
      *

@@ -6,6 +6,7 @@ import gate.circuit.combinational.EasyDCBA;
 import gate.circuit.combinational.encoder.Encoder_8_3;
 import gate.circuit.combinational.encoder.PriorityEncoder_16_4_ByTwo74HC148;
 import gate.circuit.combinational.encoder.PriorityEncoder_8_3_74HC148;
+import gate.circuit.combinational.encoder.PriorityEncoder_System_2_10_74LS147;
 import gate.circuit.exception.BaseCircuitException;
 
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ public class TestClass {
     private static final Encoder_8_3 encoder_8_3 = new Encoder_8_3();
     private static final PriorityEncoder_8_3_74HC148 priorityEncoder_8_3_74HC148 = new PriorityEncoder_8_3_74HC148();
     private static final PriorityEncoder_16_4_ByTwo74HC148 priorityEncoder_16_4_ByTwo74HC148 = new PriorityEncoder_16_4_ByTwo74HC148();
+    private static final PriorityEncoder_System_2_10_74LS147 priorityEncoder_System_2_10_74LS147 = new PriorityEncoder_System_2_10_74LS147();
 
     /**
      * 方法名：测试 GateAnd 类的基本逻辑功能
@@ -1571,6 +1573,66 @@ public class TestClass {
     }
 
     /**
+     * 方法名：测试 二-十进制优先编码器 类的基本逻辑功能
+     * 作用：测试 <b>二-十进制优先编码器</b> 类的基本逻辑功能
+     */
+    private static boolean testClass_PriorityEncoder_System_2_10_74LS147() {
+        System.out.println("测试 PriorityEncoder_System_2_10_74LS147 的基本逻辑功能：");
+
+        MACHINE_CODE[][] case_inputs = createInputs(TEST_NUMBER_9);
+        MACHINE_CODE[][] case_outputs = createInputs(TEST_NUMBER_4);
+
+        for (MACHINE_CODE[] inputs: case_inputs) {
+            String caseName = "PriorityEncoder_System_2_10_74LS147(";
+
+            priorityEncoder_System_2_10_74LS147.setInputValues(inputs);
+            MACHINE_CODE[] real_outputs = priorityEncoder_System_2_10_74LS147.getOutputValue();
+            boolean flag = false;
+
+            if (inputs[8] == MACHINE_CODE.binary_0) {
+                flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 2) + getPow(2, 1)], real_outputs);
+            } else if (inputs[7] == MACHINE_CODE.binary_0) {
+                flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 3) - 1], real_outputs);
+            } else if (inputs[6] == MACHINE_CODE.binary_0) {
+                flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 3)], real_outputs);
+            } else if (inputs[5] == MACHINE_CODE.binary_0) {
+                flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 3) + 1], real_outputs);
+            } else if (inputs[4] == MACHINE_CODE.binary_0) {
+                flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 3) + getPow(2, 1)], real_outputs);
+            } else if (inputs[3] == MACHINE_CODE.binary_0) {
+                flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 3) + getPow(2, 1) + 1], real_outputs);
+            } else if (inputs[2] == MACHINE_CODE.binary_0) {
+                flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 3) + getPow(2, 2)], real_outputs);
+            } else if (inputs[1] == MACHINE_CODE.binary_0) {
+                flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 3) + getPow(2, 2) + 1], real_outputs);
+            } else if (inputs[0] == MACHINE_CODE.binary_0) {
+                flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 4) - getPow(2, 1)], real_outputs);
+            } else {
+                flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 4) - 1], real_outputs);
+            }
+
+            for (MACHINE_CODE input: inputs) {
+                caseName += ("" + input).substring(7);
+            }
+            caseName += "_" +
+                    ("" + real_outputs[0]).substring(7) +
+                    ("" + real_outputs[1]).substring(7) +
+                    ("" + real_outputs[2]).substring(7) +
+                    ("" + real_outputs[3]).substring(7) +
+                    ")";
+            System.out.println("测试用例：" + caseName + (flag ? " 通过! " : " 不通过! "));
+
+            if (!flag) {
+                return false;
+            }
+        }
+
+        System.out.println();
+
+        return true;
+    }
+
+    /**
      * 方法名：打印二进制码数组
      */
     private static void printMachineCodeArray(MACHINE_CODE[] machine_codes) {
@@ -1638,6 +1700,10 @@ public class TestClass {
                 /* 测试 PriorityEncoder_16_4_ByTwo74HC148 类 */
                 System.out.println(testClass_PriorityEncoder_16_4_ByTwo74HC148());
                 break;
+            case 12:
+                /* 测试 PriorityEncoder_System_2_10_74LS147 类 */
+                System.out.println(testClass_PriorityEncoder_System_2_10_74LS147());
+                break;
             default:
                 break;
         }
@@ -1648,7 +1714,7 @@ public class TestClass {
      * @param args 主方法的参数
      */
     public static void main(String[] args) {
-        test(11);
+        test(12);
     }
 
 }
