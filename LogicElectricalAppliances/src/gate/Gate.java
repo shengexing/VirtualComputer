@@ -9,8 +9,6 @@ import gate.circuit.exception.BaseCircuitException;
  */
 public interface Gate {
 
-
-
     /**
      * MACHINE_CODE : 定义机器码的枚举值（0, 1）
      */
@@ -34,6 +32,47 @@ public interface Gate {
         }
 
         return result;
+    }
+
+    /**
+     * 方法名：逻辑与运算
+     * @param c0 输入1
+     * @param c1 输入2
+     * @return 结果
+     */
+    static MACHINE_CODE and(MACHINE_CODE c0, MACHINE_CODE c1){
+        if (MACHINE_CODE.binary_0 == c0 || MACHINE_CODE.binary_0 == c1) {
+            return MACHINE_CODE.binary_0;
+        } else {
+            return MACHINE_CODE.binary_1;
+        }
+    }
+
+    /**
+     * 方法名：逻辑或运算
+     * @param c0 输入1
+     * @param c1 输入2
+     * @return 结果
+     */
+    static MACHINE_CODE or(MACHINE_CODE c0, MACHINE_CODE c1){
+        if (MACHINE_CODE.binary_1 == c0 || MACHINE_CODE.binary_1 == c1) {
+            return MACHINE_CODE.binary_1;
+        } else {
+            return MACHINE_CODE.binary_0;
+        }
+    }
+
+    /**
+     * 方法名：逻辑非运算
+     * @param c 输入
+     * @return 结果
+     */
+    static MACHINE_CODE not(MACHINE_CODE c) {
+        if (MACHINE_CODE.binary_0 == c) {
+            return MACHINE_CODE.binary_1;
+        } else {
+            return MACHINE_CODE.binary_0;
+        }
     }
 
     /**

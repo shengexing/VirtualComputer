@@ -127,9 +127,9 @@ public class Decoder_3_8_74HC138 implements Gate {
 
             gateNots_level1_in1[0].setInputValues(new MACHINE_CODE[]{inputs[1]});
             gateNots_level1_in1[1].setInputValues(new MACHINE_CODE[]{inputs[2]});
-            gateNots_level1_in1[2].setInputValues(new MACHINE_CODE[]{inputs[3]});
+            gateNots_level1_in1[2].setInputValues(new MACHINE_CODE[]{inputs[5]});
             gateNots_level1_in1[3].setInputValues(new MACHINE_CODE[]{inputs[4]});
-            gateNots_level1_in1[4].setInputValues(new MACHINE_CODE[]{inputs[5]});
+            gateNots_level1_in1[4].setInputValues(new MACHINE_CODE[]{inputs[3]});
 
             gateAnd_level2_in3.setInputValues(new MACHINE_CODE[]{
                     inputs[0],
@@ -218,6 +218,7 @@ public class Decoder_3_8_74HC138 implements Gate {
     /**
      * 方法名：设置输入端的值
      * 作用：设置 <b>3线-8线译码器74HC138</b> 输入端的值
+     * 注意：A3数组是倒序赋值的
      * @param S1 控制器S1
      * @param _S2 控制器_S2
      * @param _S3 控制器_S3
@@ -236,7 +237,7 @@ public class Decoder_3_8_74HC138 implements Gate {
 
     /**
      * 方法名：获取输入端的值
-     * 作用：获取 <b>门</b> 输入端的值
+     * 作用：获取 <b>3线-8线译码器74HC138</b> 输入端的值
      *
      * @return 输入值
      * @throws BaseCircuitException
@@ -248,7 +249,7 @@ public class Decoder_3_8_74HC138 implements Gate {
 
     /**
      * 方法名：获取输出端的值
-     * 作用：获取 <b>门</b> 输出端的值
+     * 作用：获取 <b>3线-8线译码器74HC138</b> 输出端的值
      *
      * @return 输出值
      */

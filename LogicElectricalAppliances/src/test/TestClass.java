@@ -1,8 +1,10 @@
 package test;
 
+import gate.Gate;
 import gate.Gate.MACHINE_CODE;
 import gate.circuit.*;
 import gate.circuit.combinational.EasyDCBA;
+import gate.circuit.combinational.decoder.Decoder_3_8_74HC138;
 import gate.circuit.combinational.encoder.Encoder_8_3;
 import gate.circuit.combinational.encoder.PriorityEncoder_16_4_ByTwo74HC148;
 import gate.circuit.combinational.encoder.PriorityEncoder_8_3_74HC148;
@@ -47,6 +49,8 @@ public class TestClass {
     private static final PriorityEncoder_8_3_74HC148 priorityEncoder_8_3_74HC148 = new PriorityEncoder_8_3_74HC148();
     private static final PriorityEncoder_16_4_ByTwo74HC148 priorityEncoder_16_4_ByTwo74HC148 = new PriorityEncoder_16_4_ByTwo74HC148();
     private static final PriorityEncoder_System_2_10_74LS147 priorityEncoder_System_2_10_74LS147 = new PriorityEncoder_System_2_10_74LS147();
+
+    private static final Decoder_3_8_74HC138 decoder_3_8_74HC138 = new Decoder_3_8_74HC138();
 
     /**
      * 方法名：测试 GateAnd 类的基本逻辑功能
@@ -1626,7 +1630,71 @@ public class TestClass {
                 return false;
             }
         }
+        System.out.println();
 
+        return true;
+    }
+
+    /**
+     * 方法名：测试 3线-8线译码器74HC138 类的基本逻辑功能
+     * 作用：测试 <b>3线-8线译码器74HC138</b> 类的基本逻辑功能
+     * @return 用例是否通过
+     */
+    private static boolean testClass_Decoder_3_8_74HC138() {
+        System.out.println("测试 Decoder_3_8_74HC138 的基本逻辑功能：");
+
+        MACHINE_CODE[][] case_inputs = createInputs(TEST_NUMBER_6);
+        MACHINE_CODE[][] case_outputs = createInputs(TEST_NUMBER_8);
+
+        for (MACHINE_CODE[] inputs: case_inputs) {
+            String caseName = "Decoder_3_8_74HC138(";
+
+            decoder_3_8_74HC138.setInputValues(inputs);
+            MACHINE_CODE[] real_outputs = decoder_3_8_74HC138.getOutputValue();
+            boolean flag = false;
+
+            if (MACHINE_CODE.binary_0 == inputs[0] || MACHINE_CODE.binary_1 == Gate.or(inputs[1], inputs[2])) {
+                flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 8) - 1], real_outputs);
+            } else if (MACHINE_CODE.binary_0 == inputs[3] && MACHINE_CODE.binary_0 == inputs[4] && MACHINE_CODE.binary_0 == inputs[5]) {
+                flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 7) - 1], real_outputs);
+            } else if (MACHINE_CODE.binary_0 == inputs[3] && MACHINE_CODE.binary_0 == inputs[4] && MACHINE_CODE.binary_1 == inputs[5]) {
+                flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 8) - getPow(2, 6) - 1], real_outputs);
+            } else if (MACHINE_CODE.binary_0 == inputs[3] && MACHINE_CODE.binary_1 == inputs[4] && MACHINE_CODE.binary_0 == inputs[5]) {
+                flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 8) - getPow(2, 5) - 1], real_outputs);
+            } else if (MACHINE_CODE.binary_0 == inputs[3] && MACHINE_CODE.binary_1 == inputs[4] && MACHINE_CODE.binary_1 == inputs[5]) {
+                flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 8) - getPow(2, 4) - 1], real_outputs);
+            } else if (MACHINE_CODE.binary_1 == inputs[3] && MACHINE_CODE.binary_0 == inputs[4] && MACHINE_CODE.binary_0 == inputs[5]) {
+                flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 8) - getPow(2, 3) - 1], real_outputs);
+            } else if (MACHINE_CODE.binary_1 == inputs[3] && MACHINE_CODE.binary_0 == inputs[4] && MACHINE_CODE.binary_1 == inputs[5]) {
+                flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 8) - getPow(2, 2) - 1], real_outputs);
+            } else if (MACHINE_CODE.binary_1 == inputs[3] && MACHINE_CODE.binary_1 == inputs[4] && MACHINE_CODE.binary_0 == inputs[5]) {
+                flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 8) - getPow(2, 1) - 1], real_outputs);
+            } else if (MACHINE_CODE.binary_1 == inputs[3] && MACHINE_CODE.binary_1 == inputs[4] && MACHINE_CODE.binary_1 == inputs[5]) {
+                flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 8) - getPow(2, 1)], real_outputs);
+
+            } else {
+                flag = false;
+            }
+
+            for (MACHINE_CODE input: inputs) {
+                caseName += ("" + input).substring(7);
+            }
+            caseName += "_" +
+                    ("" + real_outputs[0]).substring(7) +
+                    ("" + real_outputs[1]).substring(7) +
+                    ("" + real_outputs[2]).substring(7) +
+                    ("" + real_outputs[3]).substring(7) +
+                    ("" + real_outputs[4]).substring(7) +
+                    ("" + real_outputs[5]).substring(7) +
+                    ("" + real_outputs[6]).substring(7) +
+                    ("" + real_outputs[7]).substring(7) +
+                    ")";
+            System.out.println("测试用例：" + caseName + (flag ? " 通过! " : " 不通过! "));
+
+            if (!flag) {
+                return false;
+            }
+        }
         System.out.println();
 
         return true;
@@ -1704,6 +1772,10 @@ public class TestClass {
                 /* 测试 PriorityEncoder_System_2_10_74LS147 类 */
                 System.out.println(testClass_PriorityEncoder_System_2_10_74LS147());
                 break;
+            case 13:
+                /* 测试 Decoder_3_8_74HC138 类 */
+                System.out.println(testClass_Decoder_3_8_74HC138());
+                break;
             default:
                 break;
         }
@@ -1714,7 +1786,9 @@ public class TestClass {
      * @param args 主方法的参数
      */
     public static void main(String[] args) {
-        test(12);
+        test(13);
+        //decoder_3_8_74HC138.setInputValues(MACHINE_CODE.binary_1, MACHINE_CODE.binary_0, MACHINE_CODE.binary_0,
+                //new MACHINE_CODE[]{MACHINE_CODE.binary_0, MACHINE_CODE.binary_0, MACHINE_CODE.binary_1});
     }
 
 }
