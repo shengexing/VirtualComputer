@@ -189,14 +189,9 @@ public class Decoder_3_8_74HC138 implements Gate {
                     gateNots_level2_in1[2].getOutputValue()[0]
             });
 
-            this.outputs[0] = gateNons_level3_in4[0].getOutputValue()[0];
-            this.outputs[1] = gateNons_level3_in4[1].getOutputValue()[0];
-            this.outputs[2] = gateNons_level3_in4[2].getOutputValue()[0];
-            this.outputs[3] = gateNons_level3_in4[3].getOutputValue()[0];
-            this.outputs[4] = gateNons_level3_in4[4].getOutputValue()[0];
-            this.outputs[5] = gateNons_level3_in4[5].getOutputValue()[0];
-            this.outputs[6] = gateNons_level3_in4[6].getOutputValue()[0];
-            this.outputs[7] = gateNons_level3_in4[7].getOutputValue()[0];
+            for (int i = 0; i < NUMBER_OF_OUTPUT; i++) {
+                this.outputs[i] = gateNons_level3_in4[i].getOutputValue()[0];
+            }
         } catch (BaseCircuitException e) {
             e.printStackTrace();
         }

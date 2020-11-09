@@ -4,6 +4,7 @@ import gate.Gate;
 import gate.Gate.MACHINE_CODE;
 import gate.circuit.*;
 import gate.circuit.combinational.EasyDCBA;
+import gate.circuit.combinational.decoder.Decoder_2_10_74HC42;
 import gate.circuit.combinational.decoder.Decoder_3_8_74HC138;
 import gate.circuit.combinational.decoder.Decoder_4_16;
 import gate.circuit.combinational.encoder.Encoder_8_3;
@@ -32,6 +33,7 @@ public class TestClass {
     private static final int TEST_NUMBER_7 = 7;
     private static final int TEST_NUMBER_8 = 8;
     private static final int TEST_NUMBER_9 = 9;
+    private static final int TEST_NUMBER_10 = 10;
     private static final int TEST_NUMBER_16 = 16;
     private static final int TEST_NUMBER_17 = 17;
 
@@ -55,6 +57,7 @@ public class TestClass {
 
     private static final Decoder_3_8_74HC138 decoder_3_8_74HC138 = new Decoder_3_8_74HC138();
     private static final Decoder_4_16 decoder_4_16 = new Decoder_4_16();
+    private static final Decoder_2_10_74HC42 decoder_2_10_74HC42 = new Decoder_2_10_74HC42();
 
     /**
      * 方法名：测试 GateAnd 类的基本逻辑功能
@@ -1790,6 +1793,89 @@ public class TestClass {
     }
 
     /**
+     * 方法名：测试 二-十进制译码器74HC42 类的基本逻辑功能
+     * 作用：测试 <b>二-十进制译码器74HC42</b> 类的基本逻辑功能
+     * @return 用例是否通过
+     */
+    private static boolean testClass_Decoder_2_10_74HC42() {
+        System.out.println("测试 Decoder_4_16 的基本逻辑功能：");
+
+        MACHINE_CODE[][] case_inputs = createInputs(TEST_NUMBER_4);
+        MACHINE_CODE[][] case_outputs = createInputs(TEST_NUMBER_10);
+
+        for (MACHINE_CODE[] inputs: case_inputs) {
+            String caseName = "Decoder_2_10_74HC42(";
+
+            decoder_2_10_74HC42.setInputValues(inputs);
+            MACHINE_CODE[] real_outputs = decoder_2_10_74HC42.getOutputValue();
+            boolean flag = false;
+
+            if (MACHINE_CODE.binary_0 == inputs[0]) {
+                if (MACHINE_CODE.binary_0 == inputs[1]) {
+                    if (MACHINE_CODE.binary_0 == inputs[2]) {
+                        if (MACHINE_CODE.binary_0 == inputs[3]) {
+                            flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 9) - 1], real_outputs);
+                        } else {
+                            flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 10) - getPow(2, 8) - 1], real_outputs);
+                        }
+                    } else {
+                        if (MACHINE_CODE.binary_0 == inputs[3]) {
+                            flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 10) - getPow(2, 7) - 1], real_outputs);
+                        } else {
+                            flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 10) - getPow(2, 6) - 1], real_outputs);
+                        }
+                    }
+                } else {
+                    if (MACHINE_CODE.binary_0 == inputs[2]) {
+                        if (MACHINE_CODE.binary_0 == inputs[3]) {
+                            flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 10) - getPow(2, 5) - 1], real_outputs);
+                        } else {
+                            flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 10) - getPow(2, 4) - 1], real_outputs);
+                        }
+                    } else {
+                        if (MACHINE_CODE.binary_0 == inputs[3]) {
+                            flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 10) - getPow(2, 3) - 1], real_outputs);
+                        } else {
+                            flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 10) - getPow(2, 2) - 1], real_outputs);
+                        }
+                    }
+                }
+            } else {
+                if (MACHINE_CODE.binary_0 == inputs[1]) {
+                    if (MACHINE_CODE.binary_0 == inputs[2]) {
+                        if (MACHINE_CODE.binary_0 == inputs[3]) {
+                            flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 10) - getPow(2, 1) - 1], real_outputs);
+                        } else {
+                            flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 10) - getPow(2, 1)], real_outputs);
+                        }
+                    } else {
+                        flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 10) - 1], real_outputs);
+                    }
+                } else {
+                    flag = isEqual_MachineCodeArray(case_outputs[getPow(2, 10) - 1], real_outputs);
+                }
+            }
+
+            for (MACHINE_CODE input: inputs) {
+                caseName += ("" + input).substring(7);
+            }
+            caseName += "_";
+            for (MACHINE_CODE output : real_outputs) {
+                caseName += ("" + output).substring(7);
+            }
+            caseName += ")";
+            System.out.println("测试用例：" + caseName + (flag ? " 通过! " : " 不通过! "));
+
+            if (!flag) {
+                return false;
+            }
+        }
+        System.out.println();
+
+        return true;
+    }
+
+    /**
      * 方法名：打印二进制码数组
      */
     private static void printMachineCodeArray(MACHINE_CODE[] machine_codes) {
@@ -1869,6 +1955,10 @@ public class TestClass {
                 /* 测试 Decoder_4_16 类 */
                 System.out.println(testClass_Decoder_4_16());
                 break;
+            case 15:
+                /* 测试 Decoder_2_10_74HC42 类 */
+                System.out.println(testClass_Decoder_2_10_74HC42());
+                break;
             default:
                 break;
         }
@@ -1879,7 +1969,7 @@ public class TestClass {
      * @param args 主方法的参数
      */
     public static void main(String[] args) {
-        test(14);
+        test(15);
     }
 
 }
